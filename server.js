@@ -9,10 +9,15 @@ const server = net.createServer((client) => {
   client.setEncoding('utf8');
 
   client.on('data', (data) => {
-
     console.log(data);
-    client.write('\r\nHello!\r\nRegards,\r\nServer\r\n' + '\nHello user with id' + ++seed);
-  });
+      if (data == "QA"){
+          client.write('\r\nHello!\r\nRegards,\r\nServer\r\n' + '\nHello user with id' + ++seed + "\nACK");
+      }
+        else {
+          client.write("DEC");
+          client.destroy();
+        }
+    });
 
   client.on('end', () => console.log('Client disconnected'));
 });
@@ -20,11 +25,3 @@ const server = net.createServer((client) => {
 server.listen(port, () => {
   console.log(`Server listening on localhost:${port}`);
 });
-
-
-if(data == "QA"){
-		client.write("ACK");
-	} else {
-		client.write("DEC");
-		client.destroy();
-	}
