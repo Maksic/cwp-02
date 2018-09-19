@@ -23,7 +23,6 @@ client.connect(port, function () {
 });
 
 client.on('data',  (data) => {
-    //console.log(data);
     if (data === 'DEC') {
         client.destroy();
     }
